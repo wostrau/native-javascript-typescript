@@ -27,7 +27,6 @@ beforeEach(() => {
     };
 })
 
-
 test('new tech skill should be added to student', () => {
     expect(student.technologies.length).toBe(6);
     addSkill(student, 'Typescript');
@@ -51,3 +50,4 @@ test('does student live in the city?', () => {
    expect(result1).toBe(false);
    expect(result2).toBe(true);
 });
+
