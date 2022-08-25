@@ -1,75 +1,85 @@
 import {CityType} from '../02/02_02';
-import {demolishHousesOnTheStreet} from './04_02';
+import {
+    demolishHousesOnTheStreet,
+    getBuildingsWithCorrectStaffCountGreaterThan
+} from './04_02';
 
 let city: CityType;
 
-beforeEach(()=>{
+beforeEach(() => {
     city = {
-    title: 'New York',
-    houses: [
-        {
-            id: 1,
-            builtAt: 2012,
-            repaired: false,
-            address: {
-                number: 100,
-                street: {
-                    title: 'White street'
+        title: 'New York',
+        houses: [
+            {
+                id: 1,
+                builtAt: 2012,
+                repaired: false,
+                address: {
+                    number: 100,
+                    street: {
+                        title: 'White street'
+                    }
                 }
-            }
-        },
-        {
-            id: 2,
-            builtAt: 2008,
-            repaired: false,
-            address: {
-                number: 100,
-                street: {
-                    title: 'Happy street'
+            },
+            {
+                id: 2,
+                builtAt: 2008,
+                repaired: false,
+                address: {
+                    number: 100,
+                    street: {
+                        title: 'Happy street'
+                    }
                 }
-            }
-        },
-        {
-            id: 3,
-            builtAt: 2020,
-            repaired: false,
-            address: {
-                number: 101,
-                street: {
-                    title: 'Happy street'
+            },
+            {
+                id: 3,
+                builtAt: 2020,
+                repaired: false,
+                address: {
+                    number: 101,
+                    street: {
+                        title: 'Happy street'
+                    }
                 }
-            }
-        },
-    ],
-    governmentBuildings: [
-        {
-            type: 'Hospital',
-            budget: 200000,
-            staffCount: 200,
-            address: {
-                street: {
-                    title: 'Central street'
+            },
+        ],
+        governmentBuildings: [
+            {
+                type: 'Hospital',
+                budget: 200000,
+                staffCount: 200,
+                address: {
+                    street: {
+                        title: 'Central street'
+                    }
                 }
-            }
-        },
-        {
-            type: 'Fire Station',
-            budget: 500000,
-            staffCount: 1000,
-            address: {
-                street: {
-                    title: 'South street'
+            },
+            {
+                type: 'Fire Station',
+                budget: 500000,
+                staffCount: 1000,
+                address: {
+                    street: {
+                        title: 'South street'
+                    }
                 }
-            }
-        },
-    ],
-    citizenNumber: 1000000
-}
+            },
+        ],
+        citizenNumber: 1000000
+    }
 });
 
-test('Houses should be destroyed',()=>{
-   demolishHousesOnTheStreet(city, 'Happy street');
+test('Houses should be destroyed', () => {
+    demolishHousesOnTheStreet(city, 'Happy street');
 
-   expect(city.houses.length).toBe(1);
-   expect(city.houses[0].id).toBe(1);
+    expect(city.houses.length).toBe(1);
+    expect(city.houses[0].id).toBe(1);
+});
+
+test('Buildings with correct staff count', () => {
+    let buildings = getBuildingsWithCorrectStaffCountGreaterThan(city.governmentBuildings, 500);
+
+    expect(buildings.length).toBe(1);
+    expect(buildings[0].type).toBe('Fire Station');
 });
