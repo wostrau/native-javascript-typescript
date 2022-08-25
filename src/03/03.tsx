@@ -1,5 +1,5 @@
 import {StudentType} from '../02/02';
-import {GovernmentBuildingsType, HouseType} from '../02/02_02';
+import {CityType, GovernmentBuildingsType, HouseType} from '../02/02_02';
 
 /*const sum = (a: number, b: number) => {
     return a + b;
@@ -30,4 +30,12 @@ export const repairHouse = (house: HouseType) => {
 
 export const fireStaff = (building: GovernmentBuildingsType, staff: number) => {
     building.staffCount -= staff;
+};
+
+export const hireStaff = (building: GovernmentBuildingsType, staff: number) => {
+    building.staffCount += staff;
+};
+
+export const createMessage = (city: CityType) => {
+    return `Hello, ${city.title} citizens. All ${city.citizenNumber} men should be happy!`;
 };
