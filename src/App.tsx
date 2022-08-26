@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import {User} from './06/06';
 
 function App() {
     const names = ['Alex', 'Bobby', 'Jimin', 'Jason'];
@@ -12,6 +13,8 @@ function App() {
         <div className="App">
             {liElements}
             {liUsers}
+
+            <User/>
         </div>
     );
 }
