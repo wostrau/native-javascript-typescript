@@ -13,7 +13,6 @@ function App() {
         <div className="App">
             {liElements}
             {liUsers}
-
             <User/>
         </div>
     );
