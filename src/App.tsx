@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import {User} from './06/06';
+import {ManComponent} from './07/07';
 
 function App() {
     const names = ['Alex', 'Bobby', 'Jimin', 'Jason'];
