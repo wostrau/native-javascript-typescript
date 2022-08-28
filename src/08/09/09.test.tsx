@@ -1,8 +1,8 @@
-import {increaseAge, users, UsersType} from './09';
+import {increaseAge, letters, users, UsersType} from './09';
 
 let user: UsersType;
 
-beforeEach(()=>{
+beforeEach(() => {
     user = {
         name: 'Alex',
         age: 33,
@@ -12,13 +12,13 @@ beforeEach(()=>{
     };
 });
 
-test('age should be increased correctly', ()=>{
+test('age should be increased correctly', () => {
     increaseAge(user);
 
     expect(user.age).toBe(34);
 });
 
-test('reference type test', ()=>{
+test('reference type test', () => {
     const superman = user;
     superman.age = 1000;
 
@@ -26,7 +26,7 @@ test('reference type test', ()=>{
     expect(superman.age).toBe(1000);
 });
 
-test('array reference type test', ()=>{
+test('array reference type test', () => {
     let admins = users;
     admins.push({name: 'Bobby', age: 39, address: user.address});
 
@@ -35,7 +35,7 @@ test('array reference type test', ()=>{
     expect(users[2].age).toBe(39);
 });
 
-test('value reference type test', ()=>{
+test('value reference type test', () => {
     let usersAddress = user.address;
     let user2: UsersType = {
         name: 'Maryna',
@@ -48,7 +48,7 @@ test('value reference type test', ()=>{
     expect(user2.address.title).toBe('Magilew');
 });
 
-test('reference array type test', ()=>{
+test('reference array type test', () => {
     let newAddress = {
         title: 'Lida'
     };
@@ -71,4 +71,10 @@ test('reference array type test', ()=>{
     expect(newUsers[1].address.title).toBe('Lida');
     expect(newUsers[2].address.title).toBe('Lida');
     expect(newUsers[0].name).toBe('Alexander');
+});
+
+test('sort array test', () => {
+    letters.sort();
+
+    expect(letters).toEqual(['a', 'e', 'g', 'h', 'o', 'p', 'y', 'z']);
 });
