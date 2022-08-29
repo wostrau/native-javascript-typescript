@@ -1,13 +1,13 @@
 export type AddressType = {
     title: string
     house: number
-}
+};
 
 export type UserType = {
     name: string
     hair: number
     address: AddressType
-}
+};
 
 const user: UserType = {
     name: 'Alex',
@@ -28,6 +28,10 @@ export type UserWithLaptopType = UserType & {
 
 export type UserWithBooksType = UserType & {
     books: Array<string>
+};
+
+export type UserWithCompaniesType = UserType & {
+    companies: Array<{id: number, title: string}>
 };
 
 export const makeHairstyle = (u: UserType, intensivity: number) => {
@@ -60,4 +64,14 @@ export const updateBook = (u: UserWithLaptopType & UserWithBooksType, prevBook: 
 
 export const removeBook = (u: UserWithLaptopType & UserWithBooksType, book: string) => {
     return {...u, books: u.books.filter(b => b !== book)};
+};
+
+export const addCompany = (u: UserWithLaptopType & UserWithCompaniesType, company: string) => {
+    return {...u, companies: [...u.companies, {
+        id: u.companies.length + 1,
+        title: company}]};
+};
+
+export const updateCompany = (u: UserWithLaptopType & UserWithCompaniesType, prevTitle: string, newTitle: string) => {
+    return {...u, companies: u.companies.map(t.title => prevTitle ? newTitle : t.title)};
 };

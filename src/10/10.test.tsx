@@ -1,14 +1,14 @@
 import {
-    addBook,
+    addBook, addCompany,
     makeHairstyle,
     moveUser,
-    moveUserToAnotherHouse, removeBook, updateBook,
+    moveUserToAnotherHouse, removeBook, updateBook, updateCompany,
     upgradeLaptop,
-    UserWithBooksType,
+    UserWithBooksType, UserWithCompaniesType,
     UserWithLaptopType
 } from './10';
 
-let user: UserWithLaptopType & UserWithBooksType;
+let user: UserWithLaptopType & UserWithBooksType & UserWithCompaniesType;
 
 beforeEach(() => {
     user = {
@@ -21,7 +21,14 @@ beforeEach(() => {
         laptop: {
             title: 'MacBook'
         },
-        books: ['HTML', 'CSS', 'JS', 'TS', 'REACT', 'REDUX']
+        books: ['HTML', 'CSS', 'JS', 'TS', 'REACT', 'REDUX'],
+        companies: [
+            {id: 1, title: 'Electroservice'},
+            {id: 2, title: 'Ventra Recruting'},
+            {id: 3, title: 'Mobile City'},
+            {id: 4, title: 'Imarket Trade'},
+            {id: 5, title: 'Samsung Electronics'}
+        ]
     };
 });
 
@@ -99,4 +106,31 @@ test('book should be removed correctly', () => {
     expect(userWithoutBook.books.length).toBe(5);
     expect(userWithoutBook.books.length).not.toBe(user.books.length);
     expect(userWithoutBook.books[4]).toBe('REDUX');
+});
+
+test('company should be added correctly', () => {
+    const userWithAddedCompany = addCompany(user, 'Softeq');
+
+    expect(user).not.toBe(userWithAddedCompany);
+    expect(user.companies).not.toBe(userWithAddedCompany.companies);
+    expect(user.address).toBe(userWithAddedCompany.address);
+    expect(user.laptop).toBe(userWithAddedCompany.laptop);
+    expect(user.companies.length).toBe(5);
+    expect(userWithAddedCompany.companies.length).toBe(6);
+    expect(userWithAddedCompany.companies.length).not.toBe(user.companies.length);
+    expect(userWithAddedCompany.companies[5].title).toBe('Softeq');
+    expect(userWithAddedCompany.companies[5].id).toBe(6);
+});
+
+test('company should be updated correctly', () => {
+    const userWithUpdatedCompany = updateCompany(user, 'Imarket Trade', 'Imdistri');
+
+    expect(user).not.toBe(userWithUpdatedCompany);
+    expect(user.companies).not.toBe(userWithUpdatedCompany.companies);
+    expect(user.address).toBe(userWithUpdatedCompany.address);
+    expect(user.laptop).toBe(userWithUpdatedCompany.laptop);
+    expect(user.companies.length).toBe(5);
+    expect(userWithUpdatedCompany.companies.length).toBe(5);
+    expect(userWithUpdatedCompany.companies.length).toBe(user.companies.length);
+    expect(userWithUpdatedCompany.companies[3].title).toBe('Imdistri');
 });
