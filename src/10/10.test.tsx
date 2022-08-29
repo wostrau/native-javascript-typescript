@@ -2,7 +2,7 @@ import {
     addBook,
     makeHairstyle,
     moveUser,
-    moveUserToAnotherHouse, updateBook,
+    moveUserToAnotherHouse, removeBook, updateBook,
     upgradeLaptop,
     UserWithBooksType,
     UserWithLaptopType
@@ -86,4 +86,17 @@ test('book should be updated correctly', () => {
     expect(user.books.length).toBe(6);
     expect(userWithUpdatedBook.books.length).toBe(user.books.length);
     expect(userWithUpdatedBook.books[4]).toBe('ALGORITHMS');
+});
+
+test('book should be removed correctly', () => {
+    const userWithoutBook = removeBook(user, 'REACT');
+
+    expect(user).not.toBe(userWithoutBook);
+    expect(user.books).not.toBe(userWithoutBook.books);
+    expect(user.address).toBe(userWithoutBook.address);
+    expect(user.laptop).toBe(userWithoutBook.laptop);
+    expect(user.books.length).toBe(6);
+    expect(userWithoutBook.books.length).toBe(5);
+    expect(userWithoutBook.books.length).not.toBe(user.books.length);
+    expect(userWithoutBook.books[4]).toBe('REDUX');
 });

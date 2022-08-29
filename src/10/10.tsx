@@ -52,8 +52,12 @@ export const addBook = (u: UserWithLaptopType & UserWithBooksType, book: string)
 };
 
 export const updateBook = (u: UserWithLaptopType & UserWithBooksType, prevBook: string, newBook: string) => {
-    const copyUser = {...u, books: [...u.books]};
+    return {...u, books: u.books.map(b => prevBook ? newBook : b)};
+    /*const copyUser = {...u, books: [...u.books]};
     copyUser.books.map(b => b === prevBook ? newBook : b);
-    return copyUser;
+    return copyUser;*/
 };
 
+export const removeBook = (u: UserWithLaptopType & UserWithBooksType, book: string) => {
+    return {...u, books: u.books.filter(b => b !== book)};
+};
