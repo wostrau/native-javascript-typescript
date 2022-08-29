@@ -1,4 +1,6 @@
-import {CompaniesType} from './10.test';
+export type CompaniesType = {
+    [key: string]: Array<{ id: number, title: string }>
+};
 
 export type AddressType = {
     title: string
@@ -33,7 +35,7 @@ export type UserWithBooksType = UserType & {
 };
 
 export type UserWithCompaniesType = UserType & {
-    companies: Array<{id: number, title: string}>
+    companies: Array<{ id: number, title: string }>
 };
 
 export const makeHairstyle = (u: UserType, intensivity: number) => {
@@ -60,8 +62,8 @@ export const addBook = (u: UserWithLaptopType & UserWithBooksType, book: string)
 export const updateBook = (u: UserWithLaptopType & UserWithBooksType, prevBook: string, newBook: string) => {
     return {...u, books: u.books.map(b => prevBook ? newBook : b)};
     /*const copyUser = {...u, books: [...u.books]};
-    copyUser.books.map(b => b === prevBook ? newBook : b);
-    return copyUser;*/
+    copyUser.books = copyUser.books.map(b => b === prevBook ? newBook : b);
+    return copyUser; --> IT SHOULD WORKS*/
 };
 
 export const removeBook = (u: UserWithLaptopType & UserWithBooksType, book: string) => {
@@ -69,18 +71,24 @@ export const removeBook = (u: UserWithLaptopType & UserWithBooksType, book: stri
 };
 
 export const addCompany = (u: UserWithLaptopType & UserWithCompaniesType, company: string) => {
-    return {...u, companies: [...u.companies, {
-        id: u.companies.length + 1,
-        title: company}]};
+    return {
+        ...u, companies: [...u.companies, {
+            id: u.companies.length + 1,
+            title: company
+        }]
+    };
 };
 
 export const updateCompany = (u: UserWithCompaniesType, companyId: number, newTitle: string) => {
-    const userCopy: UserWithCompaniesType = {...u, companies: u.companies.map(c => c.id === companyId ? {...c, title: newTitle} : c) };
+    const userCopy: UserWithCompaniesType = {
+        ...u,
+        companies: u.companies.map(c => c.id === companyId ? {...c, title: newTitle} : c)
+    };
     return userCopy;
 };
 
-export const updateAssociativeCompanies = (companies: CompaniesType, companyId: number, newTitle: string) => {
-    let updatedCompany = {...companies};
-
+export const updateAssociativeCompanies = (companies: CompaniesType, userName: string, companyId: number, newTitle: string) => {
+    const updatedCompany = {...companies};
+    updatedCompany[userName] = updatedCompany[userName].map(c => c.id === companyId ? {...c, title: newTitle} : c);
     return updatedCompany;
 };

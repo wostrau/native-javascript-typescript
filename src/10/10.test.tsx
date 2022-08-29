@@ -1,6 +1,5 @@
 import {
-    addBook, addCompany, fullUpdateCompany,
-    makeHairstyle,
+    addBook, addCompany, CompaniesType, makeHairstyle,
     moveUser,
     moveUserToAnotherHouse, removeBook, updateAssociativeCompanies, updateBook, updateCompany,
     upgradeLaptop,
@@ -135,10 +134,6 @@ test('company should be updated correctly', () => {
 });
 
 test('company should be updated correctly in associative array', () => {
-    export type CompaniesType = {
-        [key: string]: { id: number, title: string }
-    }
-
     let companies: CompaniesType = {
         'Alex': [
             {id: 1, title: 'Electroservice'},
@@ -147,17 +142,19 @@ test('company should be updated correctly in associative array', () => {
             {id: 4, title: 'Imarket Trade'},
             {id: 5, title: 'Samsung Electronics'}
         ],
-        'Mary': [
+        'Mari': [
             {id: 1, title: 'Zoo Soft'},
             {id: 2, title: 'Softswiss'},
             {id: 3, title: 'B Gaming'}
         ]
     };
 
-    let companyCopy = updateAssociativeCompanies(companies, 'Mary', 'Soft Swiss')
+    let companyCopy = updateAssociativeCompanies(companies, 'Mari', 2, 'Soft Swiss');
 
     expect(companyCopy['Alex'].length).toBe(5);
-    expect(companyCopy['Mary'].length).toBe(3);
-    expect(companyCopy['Mary'][0].title).toBe('Zoo Soft');
-    expect(companyCopy['Mary'][1].title).toBe('Soft Swiss');
+    expect(companyCopy['Mari'].length).toBe(3);
+    expect(companyCopy['Mari']).not.toBe(companies['Mari']);
+    expect(companyCopy['Alex']).toBe(companies['Alex']);
+    expect(companyCopy['Mari'][0].title).toBe('Zoo Soft');
+    expect(companyCopy['Mari'][1].title).toBe('Soft Swiss');
 });
