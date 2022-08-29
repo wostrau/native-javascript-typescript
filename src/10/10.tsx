@@ -1,3 +1,5 @@
+import {CompaniesType} from './10.test';
+
 export type AddressType = {
     title: string
     house: number
@@ -72,6 +74,13 @@ export const addCompany = (u: UserWithLaptopType & UserWithCompaniesType, compan
         title: company}]};
 };
 
-export const updateCompany = (u: UserWithLaptopType & UserWithCompaniesType, prevTitle: string, newTitle: string) => {
-    return {...u, companies: u.companies.map(t.title => prevTitle ? newTitle : t.title)};
+export const updateCompany = (u: UserWithCompaniesType, companyId: number, newTitle: string) => {
+    const userCopy: UserWithCompaniesType = {...u, companies: u.companies.map(c => c.id === companyId ? {...c, title: newTitle} : c) };
+    return userCopy;
+};
+
+export const updateAssociativeCompanies = (companies: CompaniesType, companyId: number, newTitle: string) => {
+    let updatedCompany = {...companies};
+
+    return updatedCompany;
 };

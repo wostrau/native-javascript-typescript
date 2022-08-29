@@ -1,8 +1,8 @@
 import {
-    addBook, addCompany,
+    addBook, addCompany, fullUpdateCompany,
     makeHairstyle,
     moveUser,
-    moveUserToAnotherHouse, removeBook, updateBook, updateCompany,
+    moveUserToAnotherHouse, removeBook, updateAssociativeCompanies, updateBook, updateCompany,
     upgradeLaptop,
     UserWithBooksType, UserWithCompaniesType,
     UserWithLaptopType
@@ -123,14 +123,41 @@ test('company should be added correctly', () => {
 });
 
 test('company should be updated correctly', () => {
-    const userWithUpdatedCompany = updateCompany(user, 'Imarket Trade', 'Imdistri');
+    let userWithUpdatedCompany = updateCompany(user, 4, 'Imdistri');
 
     expect(user).not.toBe(userWithUpdatedCompany);
     expect(user.companies).not.toBe(userWithUpdatedCompany.companies);
     expect(user.address).toBe(userWithUpdatedCompany.address);
-    expect(user.laptop).toBe(userWithUpdatedCompany.laptop);
     expect(user.companies.length).toBe(5);
     expect(userWithUpdatedCompany.companies.length).toBe(5);
     expect(userWithUpdatedCompany.companies.length).toBe(user.companies.length);
     expect(userWithUpdatedCompany.companies[3].title).toBe('Imdistri');
+});
+
+test('company should be updated correctly in associative array', () => {
+    export type CompaniesType = {
+        [key: string]: { id: number, title: string }
+    }
+
+    let companies: CompaniesType = {
+        'Alex': [
+            {id: 1, title: 'Electroservice'},
+            {id: 2, title: 'Ventra Recruting'},
+            {id: 3, title: 'Mobile City'},
+            {id: 4, title: 'Imarket Trade'},
+            {id: 5, title: 'Samsung Electronics'}
+        ],
+        'Mary': [
+            {id: 1, title: 'Zoo Soft'},
+            {id: 2, title: 'Softswiss'},
+            {id: 3, title: 'B Gaming'}
+        ]
+    };
+
+    let companyCopy = updateAssociativeCompanies(companies, 'Mary', 'Soft Swiss')
+
+    expect(companyCopy['Alex'].length).toBe(5);
+    expect(companyCopy['Mary'].length).toBe(3);
+    expect(companyCopy['Mary'][0].title).toBe('Zoo Soft');
+    expect(companyCopy['Mary'][1].title).toBe('Soft Swiss');
 });
