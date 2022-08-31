@@ -53,6 +53,19 @@ const makeGoogleRequest = () => {
 
 makeGoogleRequest().then(vacancies => console.log(vacancies));
 
+async function run() {
+    let user = await findUserInDB(1);
+    console.log(user.name);
+    let friend1 = await findUserInDB(user.name);
+    console.log(friend1.name);
+    let friend2 = await findUserInDB(friend1.name);
+    console.log(friend2.name);
+}
+
+run();
+
+
+
 
 
 
