@@ -1,3 +1,5 @@
+import {findUserInDB} from './11_02';
+
 findUserInDB(1).then(user => {
    console.log(user.name)
 });
@@ -9,7 +11,7 @@ function getNumber() {
 getNumber().then(n => console.log(n));
 getNumber().then(n => console.log(n));
 
-function wait(ms) {
+export function wait(ms: number) {
     return new Promise((res)=>{
         setTimeout(()=>{res()}, ms);
     });

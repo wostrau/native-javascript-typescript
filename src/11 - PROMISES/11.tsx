@@ -1,3 +1,5 @@
+import {axios, findUserInDB} from './11_02';
+
 const resolvedPromise = Promise.resolve(100);
 resolvedPromise
     .then(data => console.log(data))
@@ -33,9 +35,9 @@ usersAPI.login('123', '422')
         // show error
     });
 
-const findUserInDB = (id: number) => {
+/*const findUserInDB = (id: number) => {
     return {id: id, name: 'Alex'};
-};
+};*/
 
 findUserInDB(1)
     .then(user => user.name)
